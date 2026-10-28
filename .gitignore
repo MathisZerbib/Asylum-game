@@ -1,0 +1,12 @@
+.gradle/
+build/
+.kotlin/
+local.properties
+.idea/
+*.iml
+.DS_Store
+iosApp/iosApp.xcodeproj/
+xcuserdata/
+verify/build/
+verify/.gradle/
+__pycache__/
