@@ -1,0 +1,31 @@
+name: iosApp
+options:
+  bundleIdPrefix: com.lastasylum
+  deploymentTarget:
+    iOS: "15.0"
+targets:
+  iosApp:
+    type: application
+    platform: iOS
+    sources: [iosApp]
+    info:
+      path: iosApp/Info.plist
+      properties:
+        CFBundleDisplayName: Last Asylum
+        UILaunchScreen: {}
+        UIRequiresFullScreen: true
+        UIStatusBarHidden: true
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        # Unlock 120 Hz on ProMotion iPhones
+        CADisableMinimumFrameDurationOnPhone: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.lastasylum.game
+        OTHER_LDFLAGS: ["-framework", "ComposeApp"]
+        FRAMEWORK_SEARCH_PATHS: ["$(SRCROOT)/../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)"]
+    preBuildScripts:
+      - name: Compile Kotlin framework
+        basedOnDependencyAnalysis: false
+        script: |
+          cd "$SRCROOT/.."
+          ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode
